@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- StickerSwap: a BepInEx 6 (IL2CPP) plugin for Flipping is Hard, by Fabuleo8796. -->
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>StickerSwap</AssemblyName>
+    <RootNamespace>StickerStudio</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Version>1.0.0</Version>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <!-- The modded game folder: its BepInEx/core and BepInEx/interop hold every reference this needs. -->
+    <GameDir Condition="'$(GameDir)' == ''">/Users/fabuleo8796/Library/Application Support/Vinora/Bottles/484CCABE-6D9C-4855-B6BA-43A5CA9F8CD2/drive_c/Games/Flipping is Hard modded</GameDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="tests/**" />
+    <EmbeddedResource Include="src/Resources/icons.rgba" LogicalName="icons.rgba" />
+    <EmbeddedResource Include="src/Resources/Geist-SemiBold.ttf" LogicalName="Geist-SemiBold.ttf" />
+    <EmbeddedResource Include="src/Resources/Geist-Medium.ttf" LogicalName="Geist-Medium.ttf" />
+    <EmbeddedResource Include="src/Resources/Geist-Regular.ttf" LogicalName="Geist-Regular.ttf" />
+    <EmbeddedResource Include="src/Resources/OFL-Geist.txt" LogicalName="OFL-Geist.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="$(GameDir)/BepInEx/core/BepInEx.Core.dll" Private="false" />
+    <Reference Include="$(GameDir)/BepInEx/core/BepInEx.Unity.IL2CPP.dll" Private="false" />
+    <Reference Include="$(GameDir)/BepInEx/core/0Harmony.dll" Private="false" />
+    <Reference Include="$(GameDir)/BepInEx/core/Il2CppInterop.Runtime.dll" Private="false" />
+    <Reference Include="$(GameDir)/BepInEx/core/Il2CppInterop.Common.dll" Private="false" />
+    <Reference Include="$(GameDir)/BepInEx/interop/*.dll" Private="false" />
+  </ItemGroup>
+</Project>
