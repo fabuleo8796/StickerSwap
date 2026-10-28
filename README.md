@@ -54,3 +54,5 @@ references; pass `-p:GameDir="/path/to/Flipping is Hard"`). `tests/BakerTest` ru
 
 Font: Geist by Vercel, SIL Open Font License (`src/Resources/OFL-Geist.txt`).
 Not affiliated with the developers of Flipping is Hard.
+
+Code: MIT License (see `LICENSE`).
