@@ -11,7 +11,8 @@ namespace StickerStudio;
 /// Puts custom stickers on the local player's phones: the one you play, the customization-screen phone and the
 /// menu phone. Every game sticker is the same mesh per slot (Sticker_Socket_01/02/03 inside each sticker prefab) with
 /// its own material, so a custom sticker is that mesh with a copy of the material that uses our texture. The game's
-/// sticker isn't unequipped or saved over — "Restore" just puts its material back. Other players are never touched.
+/// sticker isn't unequipped or saved over — "Restore" just puts its material back. Other players' phones are FIH Sync's
+/// (SyncLink.cs), with their own material copies.
 internal static class StickerSlots
 {
     /// How much the game tilts each slot's sticker on the phone (measured from the slot meshes, degrees CCW). The baker
@@ -39,9 +40,11 @@ internal static class StickerSlots
 
     public static Texture2D Saved(int slot) => saved[slot - 1];
 
-    public static void SetSaved(int slot, Texture2D tex)
+    /// rgba / size: the baked pixels behind tex, kept for FIH Sync (other players see your stickers).
+    public static void SetSaved(int slot, Texture2D tex, byte[] rgba = null, int size = 0)
     {
         saved[slot - 1] = tex;
+        SyncLink.SetBaked(slot, tex != null ? rgba : null, size);
         Refresh(slot);
     }
 
@@ -163,7 +166,7 @@ internal static class StickerSlots
         return local != null && skins.transform.IsChildOf(local.transform);
     }
 
-    static SkinPrefabHandler Find(Il2CppSystem.Collections.Generic.List<SkinPrefabHandler> phone, SkinCategory category)
+    internal static SkinPrefabHandler Find(Il2CppSystem.Collections.Generic.List<SkinPrefabHandler> phone, SkinCategory category)
     {
         for (var i = 0; i < phone.Count; i++)
             if (phone[i] != null && phone[i].category == category) return phone[i];
@@ -178,7 +181,7 @@ internal static class StickerSlots
     }
 
     /// The slot's sticker mesh inside a handler's current sticker (every sticker prefab carries all three).
-    static Transform Socket(SkinPrefabHandler handler, int slot)
+    internal static Transform Socket(SkinPrefabHandler handler, int slot)
     {
         var root = InstanceRoot(handler);
         return root != null ? FindDeep(root, Sockets[slot - 1]) : null;
@@ -336,9 +339,17 @@ internal static class StickerSlots
     static Material OurMaterial(int slot, Material original)
     {
         if (materials[slot - 1].TryGetValue(original.Pointer, out var ours) && ours != null) return ours;
+        ours = NewMaterial(original, $"FabuleoSticker{slot}");
+        materials[slot - 1][original.Pointer] = ours;
+        return ours;
+    }
+
+    /// A fresh copy of a game sticker material set up to show a whole custom texture (also for other players' stickers).
+    internal static Material NewMaterial(Material original, string name)
+    {
         flatNormal ??= Textures.Solid(new Color32(128, 128, 255, 255), true);
         neutralMsao ??= Textures.Solid(new Color32(0, 255, 255, 255), true);
-        ours = new Material(original) { name = $"FabuleoSticker{slot}", hideFlags = HideFlags.HideAndDontSave };
+        var ours = new Material(original) { name = name, hideFlags = HideFlags.HideAndDontSave };
         Set(ours, "_Tile", 1f);
         if (ours.HasProperty("_Offset")) ours.SetVector("_Offset", Vector4.zero);
         if (ours.HasProperty("_NormalTex")) ours.SetTexture("_NormalTex", flatNormal);
@@ -351,11 +362,10 @@ internal static class StickerSlots
         Set(ours, "_EmissiveStrength", 0f);
         Set(ours, "_NormalStrength", 1f);
         Set(ours, "_SmoothnessStrength", 0.85f);
-        materials[slot - 1][original.Pointer] = ours;
         return ours;
     }
 
-    static void SetTexture(Material m, Texture2D tex)
+    internal static void SetTexture(Material m, Texture2D tex)
     {
         m.SetTexture("_MainTex", tex);
         if (m.HasProperty("_BaseMap")) m.SetTexture("_BaseMap", tex);

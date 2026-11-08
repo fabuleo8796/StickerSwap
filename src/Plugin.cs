@@ -10,10 +10,11 @@ using UnityEngine.InputSystem;
 namespace StickerStudio;
 
 /// StickerSwap for Flipping is Hard: press K, pick Sticker 1, 2 or 3, open a picture, adjust it,
-/// and it shows on the back of your phone in place of that sticker. Only on your own phone and only on your
-/// computer: nothing is sent to other players and the game's saves are never touched. Everything the mod keeps
-/// lives in BepInEx/config/FabuleosStickerStudio/.
-[BepInPlugin(Guid, "StickerSwap", "1.0.0")]
+/// and it shows on the back of your phone in place of that sticker. The game's saves are never touched; with FIH Sync
+/// installed, other modded players see your stickers too. Everything the mod keeps lives in
+/// BepInEx/config/FabuleosStickerStudio/.
+[BepInPlugin(Guid, "StickerSwap", "1.1.0")]
+[BepInDependency("com.fabuleo8796.fihsync", BepInDependency.DependencyFlags.SoftDependency)]
 public class Plugin : BasePlugin
 {
     public const string Guid = "com.fabuleo8796.stickerstudio";
@@ -42,6 +43,7 @@ public class Plugin : BasePlugin
         host.hideFlags = HideFlags.HideAndDontSave;
         host.AddComponent<StudioDriver>();
         new Harmony(Guid).PatchAll(typeof(StickerPatches));
+        SyncLink.Start();
         Log.LogInfo($"StickerSwap loaded ({StickerStore.CustomCount} custom sticker(s)), press {Hotkey.Value} in game");
     }
 }

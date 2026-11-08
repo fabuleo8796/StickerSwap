@@ -37,6 +37,7 @@ public class StudioDriver : MonoBehaviour
             GameInputPause.Tick(keyboard);
             if (keyboard != null && !opening && !FileDialog.IsOpen) Keys(keyboard);
             StudioPanel.Tick();
+            SyncLink.Tick();
             if (StudioPanel.IsOpen) Squish();
             if (StickerSlots.Dirty || Time.unscaledTime >= nextCheck)
             {
@@ -122,7 +123,7 @@ public class StudioDriver : MonoBehaviour
                 continue;
             }
             var bytes = StickerBaker.Bake(picture, size, settings, StickerSlots.Tilt[slot - 1]);
-            StickerSlots.SetSaved(slot, Textures.Upload(null, size, size, bytes));
+            StickerSlots.SetSaved(slot, Textures.Upload(null, size, size, bytes), bytes, size);
             Plugin.Logger.LogInfo($"Sticker {slot}: {Path.GetFileName(settings.PickedFrom ?? settings.Source)}");
         }
     }

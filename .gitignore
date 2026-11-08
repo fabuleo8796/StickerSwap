@@ -4,3 +4,5 @@ dist/
 design/
 BUILD_PROMPT.md
 .DS_Store
+_private/
+bin/

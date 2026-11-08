@@ -327,7 +327,7 @@ internal static class StudioPanel
             var tex = Textures.Upload(StickerSlots.Saved(Slot), size, size, bytes);
             StickerStore.Set(Slot, edit.Copy(), pictureBytes, picturePath);
             StickerSlots.EndPreview(Slot);
-            StickerSlots.SetSaved(Slot, tex);
+            StickerSlots.SetSaved(Slot, tex, bytes, size);
             Plugin.Logger.LogInfo($"Sticker {Slot} is now {Path.GetFileName(picturePath)}");
             StickerSlots.Report("stick it");
             var slot = Slot;
