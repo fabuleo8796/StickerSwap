@@ -7,7 +7,7 @@ sticker's place on your phone. You see it change live while you edit.
 
 ## Download
 
-Get **`StickerSwap-v1.0.0.zip`** from the [Releases page](../../releases/latest).
+Get **`StickerSwap-v1.1.0.zip`** from the [Releases page](../../releases/latest).
 
 ## Install
 
@@ -19,7 +19,7 @@ skip to step 2. If not:
 - Unzip it into the game folder, so the `BepInEx` folder sits next to `Flipping is Hard.exe`.
 - Start the game once (the first start takes a while), then close it.
 
-**2. Install StickerSwap:** unzip `StickerSwap-v1.0.0.zip` into the game folder.
+**2. Install StickerSwap:** unzip `StickerSwap-v1.1.0.zip` into the game folder.
 `StickerSwap.dll` ends up in `BepInEx/plugins/`.
 
 **3. Play:** start the game, wait a few seconds, and press **K**.
@@ -33,7 +33,8 @@ skip to step 2. If not:
 - **Stick it!** saves it. **Restore original** brings the game's sticker back.
 - Keys: **K** open/close · **Esc** back · **Enter** open picture / stick it · **1 2 3** pick a slot.
 
-Only you see your stickers: nothing is sent to other players, and the game's own save files are never changed.
+Only you see your stickers, unless you both run [FIH Sync](https://github.com/Fabuleo8796/FIHSync) (0.1.2+): then modded players see each other's custom
+stickers (on slots that have a game sticker). The game's own save files are never changed.
 Your stickers are kept in `BepInEx/config/FabuleosStickerStudio/` (with a copy of each picture). If the Open
 window doesn't appear, drop pictures into its `inbox` folder: they show up under **Recent**.
 
