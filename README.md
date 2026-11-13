@@ -5,6 +5,8 @@ A **Flipping is Hard** mod by **Fabuleo8796**: put your own picture on the back 
 Press **K**, pick **Sticker 1, 2 or 3**, choose a picture, adjust it, and **Stick it!** Your picture takes that
 sticker's place on your phone. You see it change live while you edit.
 
+> **FIH Sync comes included** (since 1.1.1): `FIHSync.dll` is in the mod's folder, so sharing with other modded players works without installing anything else. With several of my mods installed, BepInEx runs only one copy of it (the newest).
+
 ## Download
 
 Get **`StickerSwap-v1.1.0.zip`** from the [Releases page](../../releases/latest).
@@ -19,8 +21,9 @@ skip to step 2. If not:
 - Unzip it into the game folder, so the `BepInEx` folder sits next to `Flipping is Hard.exe`.
 - Start the game once (the first start takes a while), then close it.
 
-**2. Install StickerSwap:** unzip `StickerSwap-v1.1.0.zip` into the game folder.
-`StickerSwap.dll` ends up in `BepInEx/plugins/`.
+**2. Install StickerSwap:** unzip `StickerSwap-v1.1.1.zip` into the game folder.
+You get `BepInEx/plugins/StickerSwap/` with `StickerSwap.dll` and `FIHSync.dll` (for sharing). If you had
+`BepInEx/plugins/StickerSwap.dll` from 1.1.0, you can delete it (BepInEx loads the newer one anyway).
 
 **3. Play:** start the game, wait a few seconds, and press **K**.
 

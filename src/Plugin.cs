@@ -13,7 +13,7 @@ namespace StickerStudio;
 /// and it shows on the back of your phone in place of that sticker. The game's saves are never touched; with FIH Sync
 /// installed, other modded players see your stickers too. Everything the mod keeps lives in
 /// BepInEx/config/FabuleosStickerStudio/.
-[BepInPlugin(Guid, "StickerSwap", "1.1.0")]
+[BepInPlugin(Guid, "StickerSwap", "1.1.1")]
 [BepInDependency("com.fabuleo8796.fihsync", BepInDependency.DependencyFlags.SoftDependency)]
 public class Plugin : BasePlugin
 {
